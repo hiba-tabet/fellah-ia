@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fellah-IA : test du modèle</title>
+
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.min.js"></script>
+
+<body style="font-family:sans-serif;max-width:560px;margin:1rem auto">
+<h3>Fellah-IA : test du modèle</h3>
+
+<input id="f" type="file" accept="image/*" multiple>
+
+<textarea id="txt" rows="14"
+style="width:100%;margin-top:8px"
+placeholder="Résultats..."></textarea>
+
+<div id="out"></div>
+
+<script>
+ort.env.wasm.numThreads = 1;
+
+const MEAN = [0.485, 0.456, 0.406];
+const STD = [0.229, 0.224, 0.225];
+
+let session, classes;
+
+async function init() {
+  classes = await (await fetch("classes.json")).json();
+  session = await ort.InferenceSession.create(
+    "model.onnx",
+    { executionProviders: ["wasm"] }
+  );
+}
+
+function toTensor(img) {
+  const c = document.createElement("canvas");
+  c.width = c.height = 224;
+
+  const ctx = c.getContext("2d");
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, 0, 0, 224, 224);
+
+  const d = ctx.getImageData(0, 0, 224, 224).data;
+  const n = 224 * 224;
+  const out = new Float32Array(3 * n);
+
+  for (let i = 0; i < n; i++)
+    for (let k = 0; k < 3; k++)
+      out[k * n + i] =
+        (d[i * 4 + k] / 255 - MEAN[k]) / STD[k];
+
+  return new ort.Tensor(
+    "float32",
+    out,
+    [1, 3, 224, 224]
+  );
+}
+
+function softmax(a) {
+  const m = Math.max(...a);
+  const e = a.map(v => Math.exp(v - m));
+  const s = e.reduce((x, y) => x + y);
+  return e.map(v => v / s);
+}
+
+async function show(file) {
+  const img = new Image();
+  img.src = URL.createObjectURL(file);
+  await img.decode();
+
+  const t0 = performance.now();
+
+  const r = await session.run({
+    image: toTensor(img)
+  });
+
+  const ms = (performance.now() - t0).toFixed(0);
+
+  const p = softmax(Array.from(r.logits.data));
+
+  const top = p
+    .map((v, i) => [v, i])
+    .sort((a, b) => b[0] - a[0])
+    .slice(0, 3);
+
+  const line =
+    file.name + " | " +
+    top.map(([v, i]) =>
+      `${classes[i]} ${v.toFixed(2)}`
+    ).join(" | ");
+
+  document.getElementById("txt").value += line + "\n";
+
+  const d = document.createElement("div");
+
+  d.style.cssText =
+    "display:flex;gap:8px;margin:8px 0;align-items:center";
+
+  d.innerHTML =
+    `<img src="${img.src}" width="80">
+     <div><b>${file.name}</b> (${ms} ms)</div>`;
+
+  document.getElementById("out").appendChild(d);
+}
+
+document.getElementById("f").onchange = async e => {
+  try {
+    if (!session) await init();
+
+    for (
+      const f of [...e.target.files]
+        .sort((a, b) => a.name.localeCompare(b.name))
+    ) {
+      await show(f);
+    }
+  } catch (err) {
+    document.getElementById("txt").value +=
+      "ERREUR: " + err + "\n";
+  }
+};
+</script>
+</body>
+</html>

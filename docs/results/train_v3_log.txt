@@ -1,0 +1,65 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Device: mps
+Classes: 16
+Base train: 10026
+PlantDoc train ajoute: 882
+Combined train: 10908
+Val propre: 3448
+Test propre: 3721
+PlantDoc test: 85
+Epoch 1/12 loss=1.337 val_acc=0.9191 val_reel_top1=0.3647 time=144s
+Epoch 2/12 loss=0.978 val_acc=0.9458 val_reel_top1=0.4706 time=124s
+Epoch 3/12 loss=0.889 val_acc=0.9339 val_reel_top1=0.4706 time=124s
+Epoch 4/12 loss=0.853 val_acc=0.9713 val_reel_top1=0.4706 time=123s
+Epoch 5/12 loss=0.802 val_acc=0.9788 val_reel_top1=0.4118 time=123s
+Epoch 6/12 loss=0.777 val_acc=0.9768 val_reel_top1=0.4588 time=125s
+Epoch 7/12 loss=0.750 val_acc=0.9826 val_reel_top1=0.5176 time=134s
+Epoch 8/12 loss=0.724 val_acc=0.9806 val_reel_top1=0.5176 time=132s
+Epoch 9/12 loss=0.705 val_acc=0.9855 val_reel_top1=0.5059 time=133s
+Epoch 10/12 loss=0.699 val_acc=0.9840 val_reel_top1=0.5059 time=135s
+Epoch 11/12 loss=0.685 val_acc=0.9872 val_reel_top1=0.5059 time=140s
+Epoch 12/12 loss=0.681 val_acc=0.9875 val_reel_top1=0.5412 time=151s
+
+RÉSULTATS FINAUX
+BEST PlantDoc top1=0.5412
+Val propre=0.9875
+Test propre=0.9823
+PlantDoc test top1=0.5412
+
+RAPPORT TEST PROPRE
+                               precision    recall  f1-score   support
+
+        olive_aculus_olearius      0.960     0.965     0.963       200
+                olive_healthy      0.964     0.977     0.971       220
+           olive_peacock_spot      0.980     0.965     0.973       260
+          potato_early_blight      1.000     1.000     1.000       150
+               potato_healthy      1.000     1.000     1.000        22
+           potato_late_blight      1.000     0.987     0.993       150
+        tomato_bacterial_spot      0.939     0.969     0.954       319
+          tomato_early_blight      0.987     1.000     0.993       150
+               tomato_healthy      0.996     1.000     0.998       238
+           tomato_late_blight      0.979     0.986     0.983       286
+             tomato_leaf_mold      1.000     1.000     1.000       142
+          tomato_mosaic_virus      1.000     1.000     1.000        55
+    tomato_septoria_leaf_spot      1.000     0.981     0.990       265
+          tomato_spider_mites      0.992     0.988     0.990       251
+           tomato_target_spot      0.942     1.000     0.970       210
+tomato_yellow_leaf_curl_virus      0.999     0.974     0.986       803
+
+                     accuracy                          0.982      3721
+                    macro avg      0.984     0.987     0.985      3721
+                 weighted avg      0.983     0.982     0.982      3721
+
+
+RAPPORT PLANTDOC
+Traceback (most recent call last):
+  File "/Users/hiba.tabet/fellah-ia/scripts/train_v3.py", line 300, in <module>
+    main()
+  File "/Users/hiba.tabet/fellah-ia/scripts/train_v3.py", line 289, in main
+    classification_report(
+  File "/Users/hiba.tabet/fellah-ia/.venv/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hiba.tabet/fellah-ia/.venv/lib/python3.11/site-packages/sklearn/metrics/_classification.py", line 3112, in classification_report
+    raise ValueError(
+ValueError: Number of classes, 10, does not match size of target_names, 16. Try specifying the labels parameter

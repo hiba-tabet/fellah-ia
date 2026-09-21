@@ -1,0 +1,15 @@
+PV=10026 PlantDoc train=750 val=132 test=85 | Zeytin train=477 val=191 test=286 | device=mps
+Epoch 1/10 loss=0.822 plantdoc_val=0.788 zeytin_val: saines=0.983 malades=1.000 equilibre=0.992 time=111s
+Epoch 2/10 loss=0.757 plantdoc_val=0.758 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=109s
+Epoch 3/10 loss=0.716 plantdoc_val=0.818 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=111s
+Epoch 4/10 loss=0.697 plantdoc_val=0.773 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=109s
+Epoch 5/10 loss=0.683 plantdoc_val=0.773 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=109s
+Epoch 6/10 loss=0.676 plantdoc_val=0.750 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=109s
+Epoch 7/10 loss=0.660 plantdoc_val=0.758 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=108s
+Epoch 8/10 loss=0.664 plantdoc_val=0.795 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=109s
+Epoch 9/10 loss=0.650 plantdoc_val=0.780 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=119s
+Epoch 10/10 loss=0.657 plantdoc_val=0.788 zeytin_val: saines=0.992 malades=1.000 equilibre=0.996 time=156s
+
+===== COMPARAISON FINALE (tests jamais vus) =====
+v3: PlantDoc test top1=0.541 (n=85) | Zeytin test saines=0.845 malades=0.992 equilibre=0.918 (n=286) | test propre=0.982 (n=3721)
+v4: PlantDoc test top1=0.494 (n=85) | Zeytin test saines=0.981 malades=1.000 equilibre=0.991 (n=286) | test propre=0.982 (n=3721)

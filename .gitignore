@@ -1,0 +1,11 @@
+.venv/
+data/
+models/
+export/samples/
+__pycache__/
+.DS_Store
+node_modules/
+*.pth
+*.zip
+kaggle.json
+.env
