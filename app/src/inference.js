@@ -1,7 +1,7 @@
 // Fellah-IA — moteur de diagnostic hors-ligne
 
-const MODEL_URL = "./model/model.onnx";
-const CLASSES_URL = "./model/classes.json";
+const MODEL_URL = "/model/model.onnx";
+const CLASSES_URL = "/model/classes.json";
 
 const MEAN = [0.485, 0.456, 0.406];
 const STD = [0.229, 0.224, 0.225];
