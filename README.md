@@ -1,36 +1,24 @@
-# Fellah-IA
+# Pixel Perfect
 
-Application hors-ligne (Edge-AI) qui détecte les maladies de la tomate, de la pomme de terre et de l'olivier à partir d'une photo de feuille, et donne le conseil de traitement en Darija (texte et audio).
+Implement exactly the screenshot and nothing else
 
-## Principe
+This project was built with [Lovable](https://lovable.dev).
 
-Le modèle tourne directement dans le navigateur/téléphone avec ONNX, sans serveur de diagnostic.
+## Build with Lovable
 
-## Modèle
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e5979c9f-0203-4a36-a5cf-529f90279443).
 
-MobileNetV3, 16 classes. Export : `export/model.onnx`, `classes.json`, `preprocessing.json`.
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
-## Résultats mesurés
+## Development
 
-| Test | Résultat |
-|---|---|
-| PlantVillage + Olive, laboratoire (3 721 images) | 98,2 % |
-| PlantDoc, photos réelles (85 images, petit échantillon) | 49,4 % |
-| Zeytin, test binaire spécifique (286 images, v4) | 99,1 % équilibré* |
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-\* Résultat expérimental sur ce jeu de données précis, à ne pas interpréter comme une précision générale sur les oliviers en conditions réelles. Un contrôle de similarité des images est encore en cours.
-
-L'écart entre les images de laboratoire et les photos réelles reste important : le projet le mesure et cherche à le réduire avec des données réelles et des seuils de confiance.
-
-## Données
-
-PlantVillage (Hughes et Salathé, 2015), PlantDoc (Singh et al., 2020, CC BY 4.0), Olive Leaf Image Dataset (Kaggle), Zeytin (Kaggle).
-
-Les licences et conditions d'utilisation doivent être vérifiées sur les pages originales de chaque dataset.
-
-## Organisation
-
-`scripts/` : préparation, entraînement, évaluation et export  
-`export/` : modèle ONNX et fichiers nécessaires à l'inférence  
-`docs/results/` : résultats expérimentaux  
-`app/` : application
+```sh
+git clone <this-repository-url>
+cd <repository-name>
+npm i
+npm run dev
+```
