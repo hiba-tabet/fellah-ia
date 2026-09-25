@@ -127,6 +127,53 @@ This makes it possible to connect:
 ```text
 Prediction → Knowledge → Audio explanation
 ```
+## Dataset Sources and Licenses
+
+### PlantVillage
+
+PlantVillage is a public dataset of healthy and diseased plant leaf images. It was originally introduced by Mohanty, Hughes, and Salathé (2016).
+
+The original PlantVillage dataset contains approximately 162,916 image files across different image representations. For this project, a prepared subset of **10,026 images** was used for model training.
+
+* **Source:** PlantVillage Dataset
+* **Authors:** Mohanty, Hughes & Salathé
+* **Original publication:** *Using Deep Learning for Image-Based Plant Disease Detection*
+* **License:** CC BY-SA 3.0
+* **Project use:** Training data
+
+### PlantDoc
+
+PlantDoc is a dataset designed for plant disease recognition using images collected in more realistic conditions than laboratory-style datasets.
+
+For this project, PlantDoc was used as an external evaluation dataset. The evaluation included **967 images** across the mapped PlantDoc classes.
+
+* **Source:** PlantDoc Dataset
+* **Authors:** Singh et al. (2020)
+* **License:** CC BY 4.0
+* **Project use:** External evaluation and generalization testing
+
+### Zeytin / Olive Leaf Dataset
+
+The olive dataset used in this project contains **3,400 images** divided into three classes:
+
+* Healthy: 1,050 images
+* *Aculus olearius*: 890 images
+* Olive Peacock Spot: 1,460 images
+
+The images are associated with olive leaf disease research conducted in **Denizli, Turkey**.
+
+* **Dataset:** Olive Leaf Disease / Zeytin
+* **Classes:** Healthy, *Aculus olearius*, Olive Peacock Spot
+* **Location:** Denizli, Turkey
+* **Project use:** Olive disease training and evaluation
+* **License:** Not clearly specified in the available source; therefore, no specific license is claimed here.
+
+### Dataset Usage Note
+
+The datasets were used for different purposes during development. The original dataset sizes should not be confused with the exact subsets used during model training and evaluation.
+
+All dataset names, authors, publications, and licensing information should be cited appropriately in the final academic report and presentation.
+
 
 ## Model Evaluation
 
