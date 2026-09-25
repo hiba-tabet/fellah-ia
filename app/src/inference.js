@@ -6,7 +6,7 @@ const CLASSES_URL = "/model/classes.json";
 const MEAN = [0.485, 0.456, 0.406];
 const STD = [0.229, 0.224, 0.225];
 
-const CONFIDENCE_THRESHOLD = 0.5;
+const CONFIDENCE_THRESHOLD = 0.55;
 
 let session = null;
 let classes = null;
