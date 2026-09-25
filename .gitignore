@@ -30,3 +30,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+data/*
+!data/knowledge.json
+export/samples/
+models/
+scripts/__pycache__/
+*.zip
+sw.js
