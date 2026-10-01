@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#3f6b3a"/>
+  <path d="M256 105c-91 32-143 99-143 177 0 82 63 139 143 139s143-57 143-139c0-78-52-145-143-177Z" fill="#f7f3e8"/>
+  <path d="M256 180v226M256 275c-38-37-70-52-103-55M256 319c38-37 70-52 103-55" fill="none" stroke="#3f6b3a" stroke-width="18" stroke-linecap="round"/>
+  <text x="256" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#f7f3e8">فلاح</text>
+</svg>

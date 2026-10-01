@@ -1,0 +1,12 @@
+{
+  "input_name": "image",
+  "input_shape": [1, 3, 224, 224],
+  "output_name": "logits",
+  "layout": "NCHW, float32",
+  "color": "RGB",
+  "resize": "224x224 direct (pas de recadrage), interpolation bilinéaire",
+  "scale": "pixels divisés par 255, puis (x - mean) / std",
+  "mean": [0.485, 0.456, 0.406],
+  "std": [0.229, 0.224, 0.225],
+  "output": "16 logits -> softmax ; l'ordre suit classes.json"
+}
