@@ -1,0 +1,12 @@
+labo_0.jpg | olive_peacock_spot 0.84 | olive_aculus_olearius 0.09 | tomato_early_blight 0.02
+labo_1.jpg | potato_late_blight 0.90 | tomato_healthy 0.01 | tomato_bacterial_spot 0.01
+labo_2.jpg | tomato_late_blight 0.98 | potato_early_blight 0.00 | olive_healthy 0.00
+labo_3.jpg | tomato_yellow_leaf_curl_virus 0.88 | tomato_spider_mites 0.02 | tomato_mosaic_virus 0.01
+plantdoc_0.jpg | potato_early_blight 0.53 | potato_late_blight 0.26 | tomato_late_blight 0.09
+plantdoc_1.jpg | potato_early_blight 0.47 | potato_late_blight 0.38 | olive_healthy 0.04
+plantdoc_2.jpg | tomato_late_blight 0.72 | potato_late_blight 0.09 | potato_early_blight 0.04
+plantdoc_3.jpg | tomato_early_blight 0.48 | tomato_septoria_leaf_spot 0.24 | tomato_bacterial_spot 0.09
+zeytin_0.png | olive_healthy 0.87 | olive_peacock_spot 0.03 | potato_late_blight 0.01
+zeytin_1.png | olive_healthy 0.89 | tomato_mosaic_virus 0.02 | tomato_early_blight 0.02
+zeytin_2.png | olive_peacock_spot 1.00 | potato_early_blight 0.00 | tomato_early_blight 0.00
+zeytin_3.png | olive_healthy 0.91 | tomato_mosaic_virus 0.02 | potato_early_blight 0.01

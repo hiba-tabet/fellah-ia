@@ -1,4 +1,5 @@
-import * as ort from "onnxruntime-web";
+import * as ort from "onnxruntime-web/wasm";
+
 
 const MODEL_URL = "/model/model.onnx";
 const CLASSES_URL = "/model/classes.json";

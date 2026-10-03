@@ -1,11 +1,12 @@
-const CACHE_NAME = "fellah-ia-v1";
+const CACHE_NAME = "fellah-ia-v2";
 
 const APP_SHELL = [
   "/",
   "/knowledge.json",
   "/model/model.onnx",
   "/model/classes.json",
-  "/model/preprocessing.json"
+  "/model/preprocessing.json",
+  "/ort-wasm-simd-threaded.wasm",
 ];
 
 self.addEventListener("install", (event) => {
@@ -32,7 +33,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
+    caches.match(event.request, { ignoreSearch: true }).then((cached) => {
       if (cached) return cached;
 
       return fetch(event.request).then((response) => {

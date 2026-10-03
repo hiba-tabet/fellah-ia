@@ -1,0 +1,7 @@
+   220  test/Healthy
+   200  test/aculus_olearius
+   260  test/olive_peacock_spot
+   830  train/Healthy
+   690  train/aculus_olearius
+  1200  train/olive_peacock_spot
+TOTAL: 3400

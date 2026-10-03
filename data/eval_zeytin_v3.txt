@@ -1,0 +1,19 @@
+
+[healthy] n=572
+  culture reconnue (top1 = une classe d'olivier): 1.000
+  saine/malade correct (p_saine vs p_malade):     0.855
+    top1 = olive_healthy                     500 (0.87)
+    top1 = olive_aculus_olearius              38 (0.07)
+    top1 = olive_peacock_spot                 34 (0.06)
+
+[diseased] n=382
+  culture reconnue (top1 = une classe d'olivier): 0.976
+  saine/malade correct (p_saine vs p_malade):     0.992
+    top1 = olive_peacock_spot                366 (0.96)
+    top1 = potato_early_blight                 7 (0.02)
+    top1 = olive_healthy                       5 (0.01)
+    top1 = olive_aculus_olearius               2 (0.01)
+    top1 = tomato_late_blight                  1 (0.00)
+    top1 = tomato_early_blight                 1 (0.00)
+
+Précision équilibrée saine/malade = 0.924

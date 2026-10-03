@@ -1,0 +1,28 @@
+ASSOCIATION dossier PlantDoc -> classe:
+  Potato leaf early blight  ->  potato_early_blight
+  Potato leaf late blight  ->  potato_late_blight
+  Tomato Early blight leaf  ->  tomato_early_blight
+  Tomato Septoria leaf spot  ->  tomato_septoria_leaf_spot
+  Tomato leaf  ->  tomato_healthy
+  Tomato leaf bacterial spot  ->  tomato_bacterial_spot
+  Tomato leaf late blight  ->  tomato_late_blight
+  Tomato leaf mosaic virus  ->  tomato_mosaic_virus
+  Tomato leaf yellow virus  ->  tomato_yellow_leaf_curl_virus
+  Tomato mold leaf  ->  tomato_leaf_mold
+  Tomato two spotted spider mites leaf  ->  tomato_spider_mites
+IGNORÉS: ['Apple Scab Leaf', 'Apple leaf', 'Apple rust leaf', 'Bell_pepper leaf', 'Bell_pepper leaf spot', 'Blueberry leaf', 'Cherry leaf', 'Corn Gray leaf spot', 'Corn leaf blight', 'Corn rust leaf', 'Peach leaf', 'Raspberry leaf', 'Soyabean leaf', 'Squash Powdery mildew leaf', 'Strawberry leaf', 'grape leaf', 'grape leaf black rot']
+
+classe                              n  top1  top3
+potato_early_blight               116  0.31  0.63
+potato_late_blight                105  0.10  0.35
+tomato_bacterial_spot             110  0.05  0.23
+tomato_early_blight                88  0.59  0.88
+tomato_healthy                     63  0.03  0.13
+tomato_late_blight                111  0.48  0.87
+tomato_leaf_mold                   91  0.12  0.31
+tomato_mosaic_virus                54  0.02  0.09
+tomato_septoria_leaf_spot         151  0.34  0.73
+tomato_spider_mites                 2  0.00  0.00
+tomato_yellow_leaf_curl_virus      76  0.01  0.12
+
+TOTAL n=967  top1=0.233  top3=0.485

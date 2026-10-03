@@ -1,0 +1,4 @@
+TÉMOIN     n=200 | corrélation max médiane=0.63 | >=0.90: 0.00 | >=0.95: 0.00
+val        n=191 | corrélation max médiane=0.89 | >=0.90: 0.42 | >=0.95: 0.02
+test       n=286 | corrélation max médiane=0.89 | >=0.90: 0.41 | >=0.95: 0.01
+image enregistrée: data/leak_check.jpg (gauche = test, droite = image la plus proche du train)

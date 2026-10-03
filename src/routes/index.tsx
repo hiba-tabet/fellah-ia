@@ -77,7 +77,7 @@ function Index() {
     return () => window.clearTimeout(timer);
   }, []);
   useEffect(() => () => { streamRef.current?.getTracks().forEach(track => track.stop()); window.speechSynthesis?.cancel(); }, []);
-  useEffect(() => { if ("serviceWorker" in navigator) { window.addEventListener("load", () => { void navigator.serviceWorker.register("/sw.js"); }); } }, []);
+  useEffect(() => { if ("serviceWorker" in navigator) { void navigator.serviceWorker.register("/sw.js"); } }, []);
 
   const saveRecords = (items: RecordItem[]) => {
     setRecords(items);

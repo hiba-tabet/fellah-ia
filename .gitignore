@@ -30,3 +30,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local datasets and ML training artifacts
+data/plantvillage/
+data/plantvillage-dataset.zip
+data/plantdoc/
+data/zeytin/
+data/zeytin.zip
+data/olive/
+data/olive_binary/
+data/olive-leaf-image-dataset.zip
+data/my_photos/
+models/
+scripts/__pycache__/
+
+# Local macOS metadata
+data/.DS_Store
+
+# Old/reference frontend copy
+app/src/*
+data/prepared/
