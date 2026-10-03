@@ -1,54 +1,43 @@
 # fellah AI
 
-fellah AI is an agricultural AI application designed to help farmers identify common plant diseases from a leaf photo and receive clear, practical advice in Algerian Darija.
+fellah AI is an agricultural AI application designed to help farmers identify common plant diseases from leaf images and understand the result through simple Algerian Darija audio guidance.
 
-The application combines an AI image classification model, a knowledge base, and audio explanations to provide an accessible agricultural assistance tool.
+The application combines an AI image classification model, a structured agricultural knowledge base, and an accessible voice-based interface designed for practical use in the field.
 
 ## Target Users
 
-fellah AI was designed specifically to be accessible to farmers who may have limited or no reading and writing skills, as well as limited experience with smartphones and digital applications.
+fellah AI was designed specifically to be accessible to farmers who may have limited time, limited technical experience, or limited literacy.
 
 For this reason, the application is intentionally simple:
 
-**Take a photo → Analyze the leaf → Receive the result → Listen to the explanation and advice**
+**Take a photo → Analyze the leaf → Receive the result → Listen to the explanation**
 
-The goal is to reduce the need for reading, typing, and complex interaction with technology.
+The goal is to reduce the need for reading, typing, and complex interactions.
 
 ## Why Algerian Darija?
 
-The application uses Algerian Darija because it is the everyday language used by many of the target users.
+The application uses Algerian Darija because it is the everyday language spoken by many Algerian farmers.
 
-Technical agricultural information can be difficult to understand when presented only in formal or technical language. Providing explanations in Algerian Darija makes the information more familiar and accessible.
+Technical agricultural information can be difficult to understand when presented only in formal or highly technical language. Using Algerian Darija makes the result more direct, familiar, and practical.
+
+The application interface and audio guidance are therefore designed around the local context rather than a generic international agricultural interface.
 
 ## Audio-Based Accessibility
 
 Audio is an important part of fellah AI.
 
-Instead of requiring the farmer to read long explanations, the application can provide an audio explanation corresponding to the detected plant condition.
+Instead of requiring the farmer to read long explanations, the application provides a dedicated audio explanation for each supported plant condition.
 
-Each supported class has a dedicated audio file.
+Each supported class has a dedicated audio file in Algerian Darija.
 
-This approach is particularly useful for users with limited literacy or limited experience with digital applications.
+This approach is particularly useful for users with limited literacy or users who prefer listening to instructions while working in the field.
 
 ## Supported Plants and Conditions
 
-The current model contains 16 classes covering olive, potato, and tomato plants.
-
-### Olive
-
-* Olive healthy
-* Olive peacock spot
-* Olive aculus olearius
-
-### Potato
-
-* Potato healthy
-* Potato early blight
-* Potato late blight
+The current model supports 16 classes covering tomato, potato, and olive plants.
 
 ### Tomato
 
-* Tomato healthy
 * Tomato bacterial spot
 * Tomato early blight
 * Tomato late blight
@@ -58,223 +47,269 @@ The current model contains 16 classes covering olive, potato, and tomato plants.
 * Tomato spider mites
 * Tomato target spot
 * Tomato yellow leaf curl virus
+* Tomato healthy
+
+### Potato
+
+* Potato early blight
+* Potato late blight
+* Potato healthy
+
+### Olive
+
+* Olive peacock spot
+* Olive aculus olearius
+* Olive healthy
+
+## How the Application Works
+
+The main workflow is:
+
+1. The user selects a crop.
+2. The user takes a photo or selects an image from the gallery.
+3. The image is resized and preprocessed in the browser.
+4. The ONNX model analyzes the image locally.
+5. The application returns the most likely class and confidence information.
+6. The corresponding agricultural knowledge entry is displayed.
+7. The user can listen to the associated Algerian Darija audio.
+8. The result can be stored in the local history.
+
+The application is designed to perform inference locally in the browser rather than sending plant images to a remote inference API.
 
 ## AI Model
 
-The application uses an ONNX image classification model for plant disease recognition.
+The application uses an ONNX image classification model executed with ONNX Runtime Web.
 
-The model receives a leaf image and produces probabilities for the supported classes.
+The model expects:
 
-The application then ranks the predicted classes and uses the highest-confidence prediction as the main result.
+* RGB image input
+* 224 × 224 resolution
+* ImageNet-style normalization
+* mean: `[0.485, 0.456, 0.406]`
+* standard deviation: `[0.229, 0.224, 0.225]`
 
-## Model Files
+The browser inference pipeline uses the WebAssembly execution provider.
 
-The model files used by the application are stored in:
-
-```text
-app/public/model/
-```
-
-Current model assets include:
-
-```text
-app/public/model/
-├── model.onnx
-├── classes.json
-└── preprocessing.json
-```
-
-### `model.onnx`
-
-The trained ONNX model used for image classification.
-
-### `classes.json`
-
-Contains the list of classes predicted by the model.
-
-### `preprocessing.json`
-
-Contains the preprocessing information required before sending an image to the model.
-
-## Knowledge Base
-
-The agricultural explanations and recommendations are stored in:
-
-```text
-data/knowledge.json
-```
-
-The knowledge base contains information corresponding to all 16 model classes.
-
-It is used to provide additional information after the model produces a prediction.
-
-The knowledge base is designed to connect the AI prediction with practical agricultural information.
-
-## Audio Files
-
-Audio explanations are stored in:
-
-```text
-audio/
-```
-
-There are currently 16 audio files, corresponding to the 16 supported classes.
-
-Each audio file uses the same class identifier as the model and knowledge base.
-
-This makes it possible to connect:
-
-```text
-Prediction → Knowledge → Audio explanation
-```
-## Dataset Sources and Licenses
-
-### PlantVillage
-
-PlantVillage is a public dataset of healthy and diseased plant leaf images. It was originally introduced by Mohanty, Hughes, and Salathé (2016).
-
-The original PlantVillage dataset contains approximately 162,916 image files across different image representations. For this project, a prepared subset of **10,026 images** was used for model training.
-
-* **Source:** PlantVillage Dataset
-* **Authors:** Mohanty, Hughes & Salathé
-* **Original publication:** *Using Deep Learning for Image-Based Plant Disease Detection*
-* **License:** CC BY-SA 3.0
-* **Project use:** Training data
-
-### PlantDoc
-
-PlantDoc is a dataset designed for plant disease recognition using images collected in more realistic conditions than laboratory-style datasets.
-
-For this project, PlantDoc was used as an external evaluation dataset. The evaluation included **967 images** across the mapped PlantDoc classes.
-
-* **Source:** PlantDoc Dataset
-* **Authors:** Singh et al. (2020)
-* **License:** CC BY 4.0
-* **Project use:** External evaluation and generalization testing
-
-### Zeytin / Olive Leaf Dataset
-
-The olive dataset used in this project contains **3,400 images** divided into three classes:
-
-* Healthy: 1,050 images
-* *Aculus olearius*: 890 images
-* Olive Peacock Spot: 1,460 images
-
-The images are associated with olive leaf disease research conducted in **Denizli, Turkey**.
-
-* **Dataset:** Olive Leaf Disease / Zeytin
-* **Classes:** Healthy, *Aculus olearius*, Olive Peacock Spot
-* **Location:** Denizli, Turkey
-* **Project use:** Olive disease training and evaluation
-* **License:** Not clearly specified in the available source; therefore, no specific license is claimed here.
-
-### Dataset Usage Note
-
-The datasets were used for different purposes during development. The original dataset sizes should not be confused with the exact subsets used during model training and evaluation.
-
-All dataset names, authors, publications, and licensing information should be cited appropriately in the final academic report and presentation.
-
+The application uses a confidence threshold of **0.55** for the current V1 behavior. Predictions below this threshold are treated as uncertain rather than presented as reliable diagnoses.
 
 ## Model Evaluation
 
-The model was evaluated using test images from PlantDoc.
+The model was evaluated using both internal test data and external PlantDoc data.
 
-The evaluation focused on the relationship between prediction confidence, coverage, precision, and refusal rate.
+### Internal Test Set
 
-A confidence threshold of `0.55` is currently used by the application.
+The final internal test set contains **3,721 images**.
 
-At this threshold, the evaluation produced:
+* Top-1 accuracy: **98.74%**
+* Macro F1-score: approximately **0.988**
+* Weighted F1-score: approximately **0.987**
 
-| Confidence Threshold | Coverage | Precision | Refusal Rate |
-| -------------------: | -------: | --------: | -----------: |
-|                 0.55 |   49.41% |    61.90% |       50.59% |
+These results represent the model's performance on the final internal evaluation split.
 
-The threshold was selected as a practical V1 compromise between providing predictions and refusing uncertain predictions.
+### PlantDoc External Evaluation
 
-The threshold can be adjusted in the future as more representative test data becomes available.
+PlantDoc was used as an external evaluation source to measure generalization to images outside the internal training distribution.
 
-## Confidence-Based Prediction
+A broader PlantDoc evaluation contained:
 
-The application does not treat every model prediction as equally reliable.
+* **967 images**
+* **11 mapped classes**
+* Top-1 accuracy: **23.3%**
+* Top-3 accuracy: **48.5%**
 
-A prediction is considered confident when its probability reaches the configured confidence threshold.
+A separate 85-image PlantDoc subset was also evaluated for the confidence-threshold analysis.
 
-The current value is:
+At the selected threshold of **0.55**:
 
-```javascript
-const CONFIDENCE_THRESHOLD = 0.55;
-```
+* Coverage: **49.41%**
+* Precision among accepted predictions: **61.90%**
+* Refusal rate: **50.59%**
 
-If the highest prediction does not reach this threshold, the application can treat the result as uncertain rather than presenting it as a reliable diagnosis.
+This highlights an important limitation: performance on controlled/internal data is substantially higher than performance on external field-style imagery.
 
-This is important because an agricultural AI system should avoid presenting uncertain predictions as definitive diagnoses.
+## Olive Evaluation
+
+A separate olive evaluation was performed using a balanced dataset.
+
+For the diseased olive subset:
+
+* Culture recognition: **97.6%**
+* Healthy/diseased correctness: **99.2%**
+* Balanced healthy/diseased precision: **92.4%**
+
+The olive results indicate strong performance for the specific evaluation setup, while still requiring additional field validation before being considered a clinical or agricultural diagnostic system.
+
+## Knowledge Base
+
+The application uses a structured JSON knowledge base stored at:
+
+`public/knowledge.json`
+
+The knowledge base contains one entry for each supported model class.
+
+Each entry provides information such as:
+
+* disease or healthy status
+* human-readable title
+* description
+* class identifier
+
+The frontend maps the predicted model class to the corresponding knowledge entry before displaying the final result.
+
+## Audio Files
+
+Audio files are stored in:
+
+`public/audio/`
+
+There are currently 16 audio files, one for each supported model class.
+
+The recordings are designed to provide simple Algerian Darija explanations associated with the detected condition.
+
+Audio is loaded locally by the application and can also be cached by the service worker after being requested.
+
+## History
+
+The application provides a local history feature.
+
+Detected results can be stored in browser local storage under:
+
+`fellah-ai-history`
+
+The history interface allows the user to:
+
+* review previous analyses
+* open previous results
+* delete individual results
+* delete the complete history
+
+The history is stored locally in the browser.
+
+## PWA and Offline Support
+
+fellah AI is implemented as a Progressive Web App.
+
+The PWA configuration is provided through:
+
+* `public/manifest.webmanifest`
+* `public/sw.js`
+
+The service worker caches the main application assets, model files, knowledge base, and ONNX Runtime WebAssembly runtime.
+
+Requested resources such as audio files are also cached dynamically.
+
+### Offline Validation
+
+Offline functionality was tested on the production-style local deployment.
+
+The validation procedure was:
+
+1. Open the application while connected.
+2. Perform a real image analysis.
+3. Play the corresponding audio.
+4. Disable the network connection.
+5. Perform another analysis without reloading the application.
+6. Verify that the result and audio remain available.
+
+The tested flow worked successfully without an active network connection.
 
 ## Project Structure
 
-The main project structure is currently organized as follows:
+The main project structure is:
 
 ```text
 fellah-ia/
-├── app/
-│   ├── public/
-│   │   └── model/
-│   │       ├── model.onnx
-│   │       ├── classes.json
-│   │       └── preprocessing.json
-│   ├── src/
-│   │   └── inference.js
-│   └── INTEGRATION.md
-│
-├── audio/
-│   └── *.mp3
-│
+├── public/
+│   ├── audio/
+│   ├── icons/
+│   ├── model/
+│   │   ├── model.onnx
+│   │   ├── classes.json
+│   │   └── preprocessing.json
+│   ├── knowledge.json
+│   ├── manifest.webmanifest
+│   ├── ort-wasm-simd-threaded.mjs
+│   ├── ort-wasm-simd-threaded.wasm
+│   └── sw.js
+├── src/
+│   ├── inference.ts
+│   └── routes/
+│       └── index.tsx
 ├── data/
-│   └── knowledge.json
-│
 ├── docs/
-│
-├── export/
-│   └── classes.json
-│
-├── models/
-│
 ├── scripts/
-│   └── choose_threshold.py
-│
 ├── package.json
-├── README.md
-└── sw.js
+├── wrangler.json
+└── README.md
 ```
-
-Some directories also contain datasets, evaluation files, experiments, and training-related material used during development.
 
 ## Technologies
 
-The project currently uses technologies including:
+The project uses:
 
-* JavaScript
+* TypeScript
 * React
+* TanStack Start
 * Vite
-* ONNX Runtime
-* ONNX image classification
-* Python
-* Plant disease datasets
-* Audio explanations in Algerian Darija
+* ONNX Runtime Web
+* ONNX
+* WebAssembly
+* Cloudflare Workers / Wrangler
+* Progressive Web App technologies
+* Browser Local Storage
+* HTML Media APIs
+* Camera APIs
+
+## Datasets
+
+The model development and evaluation process used several datasets, including:
+
+* PlantVillage
+* PlantDoc
+* Zeytin / olive leaf data
+
+The project keeps large datasets and training artifacts outside the deployed frontend repository.
+
+Dataset licenses and original dataset terms remain applicable to their respective sources.
+
+## Limitations
+
+fellah AI is a prototype and research-oriented agricultural assistance tool.
+
+It should not be considered a definitive agricultural diagnosis system.
+
+Important limitations include:
+
+* performance decreases on external field-style images compared with the internal test set
+* PlantDoc results show significant domain-shift effects
+* image quality strongly affects prediction reliability
+* some visually similar diseases remain difficult to distinguish
+* the current model only supports the listed 16 classes
+* confidence thresholding can reject many uncertain images
+* agricultural recommendations should be validated by qualified agricultural professionals when necessary
+
+The system should therefore be used as a decision-support and educational tool rather than as a replacement for professional agricultural expertise.
+
+## Future Work
+
+Possible future improvements include:
+
+* collecting more Algerian field images
+* expanding the number of supported crops
+* improving external-domain generalization
+* adding more field-specific disease classes
+* improving uncertainty detection
+* adding richer agricultural recommendations
+* improving the unclear-image audio guidance
+* packaging the PWA as an Android application
+* conducting larger real-world field evaluations
 
 ## Development
 
-The project uses Node.js and npm for the frontend environment.
-
-Install the dependencies:
+Install dependencies:
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
 ```
 
 Build the application:
@@ -283,157 +318,21 @@ Build the application:
 npm run build
 ```
 
-Create a development build:
+For a production-style local test with Wrangler:
 
 ```bash
-npm run build:dev
+npx wrangler dev .output/server/index.mjs --local --port 8080
 ```
 
-Preview a production build:
+The application can then be tested locally through the Wrangler server.
 
-```bash
-npm run preview
-```
+## Conclusion
 
-Run linting:
+fellah AI combines computer vision, local browser inference, Algerian Darija, and audio accessibility to provide a practical agricultural assistance prototype.
 
-```bash
-npm run lint
-```
+The project demonstrates that an AI-based plant disease classifier can be integrated into a simple, locally adapted interface designed around the needs of Algerian farmers.
 
-Format the project:
+The current evaluation also highlights an important research challenge: strong performance on internal data does not automatically translate into strong performance on real-world field imagery.
 
-```bash
-npm run format
-```
+For that reason, future development will focus on broader field data, stronger external validation, and improved uncertainty handling.
 
-## Offline and PWA Support
-
-Offline functionality and Progressive Web App support are part of the project's objectives.
-
-The application is intended to eventually allow the main user experience to work with limited or no internet connectivity.
-
-This includes making the following resources available offline:
-
-* The application interface
-* The ONNX model
-* Class definitions
-* Preprocessing configuration
-* Agricultural knowledge
-* Audio explanations
-
-The final service worker and PWA configuration will be integrated once the frontend structure is finalized.
-
-## Accessibility Goals
-
-fellah AI is designed around several accessibility principles:
-
-### Minimal Interaction
-
-The farmer should not need to navigate through complicated menus.
-
-### Photo-Based Input
-
-The main input is a photograph of a plant leaf.
-
-### Audio Assistance
-
-Important information can be communicated through audio instead of relying only on text.
-
-### Familiar Language
-
-Agricultural explanations are provided in Algerian Darija.
-
-### Simple User Flow
-
-The intended interaction is:
-
-```text
-Take a photo
-      ↓
-Analyze the leaf
-      ↓
-Receive the prediction
-      ↓
-Listen to the explanation
-      ↓
-Follow the recommended advice
-```
-
-## Project Objectives
-
-The main objectives of fellah AI are:
-
-1. Help farmers identify common plant diseases from photographs.
-2. Provide accessible agricultural information.
-3. Reduce dependence on reading and writing.
-4. Use Algerian Darija for practical explanations.
-5. Provide audio assistance.
-6. Explore offline and PWA functionality.
-7. Provide a simple interface suitable for users with limited experience with smartphones.
-
-## Limitations
-
-The application is an AI-assisted agricultural tool and should not be considered a replacement for professional agronomic diagnosis.
-
-The model is trained and evaluated on specific datasets, and its performance may vary with:
-
-* Image quality
-* Lighting conditions
-* Leaf orientation
-* Background complexity
-* Plant variety
-* Disease stage
-* Diseases or conditions not represented in the training data
-
-The current confidence threshold also means that many uncertain images may be rejected rather than classified.
-
-The evaluation reported above is based on a limited test set and should not be interpreted as a guarantee of real-world performance.
-
-## Future Improvements
-
-Possible future improvements include:
-
-* Improving model accuracy with more representative field images.
-* Expanding the number of supported crops and diseases.
-* Improving disease-specific recommendations.
-* Improving audio explanations.
-* Adding more robust offline functionality.
-* Completing the PWA implementation.
-* Adding application icons and installation support.
-* Improving image quality checks.
-* Adding more extensive field testing.
-* Improving confidence calibration.
-* Adding additional languages if needed.
-
-## Current Project Status
-
-The project currently includes:
-
-* A trained ONNX plant classification model.
-* 16 supported classes.
-* Model inference logic.
-* A confidence threshold of `0.55`.
-* A knowledge base covering all 16 classes.
-* 16 Algerian Darija audio explanations.
-* Model assets prepared for frontend integration.
-* Evaluation and threshold-selection scripts.
-* GitHub version control.
-
-The frontend is still being finalized and integrated.
-
-The service worker, PWA configuration, final application flow testing, and demonstration workflow will be completed after the frontend structure is finalized.
-
-## Vision
-
-fellah AI aims to make agricultural AI more accessible by adapting the technology to the real needs of its users.
-
-The project focuses not only on disease classification, but also on accessibility, language, audio communication, simplicity, and practical agricultural assistance.
-
-The long-term goal is to provide farmers with a tool that is easy to understand and easy to use, even when reading, writing, smartphone experience, or internet connectivity may be limited.
-
-## Repository
-
-GitHub repository:
-
-`https://github.com/hiba-tabet/fellah-ia`
