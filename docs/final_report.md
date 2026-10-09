@@ -56,13 +56,13 @@ The general workflow is:
 The AI model is stored as an ONNX file:
 
 ```text
-app/public/model/model.onnx
+public/model/model.onnx
 ```
 
 The frontend sends the selected image to the `analyze()` function implemented in:
 
 ```text
-app/src/inference.js
+src/inference.ts
 ```
 
 The inference engine preprocesses the image, runs the ONNX model, applies softmax to the output logits, and ranks the predicted classes.
@@ -105,7 +105,7 @@ The predictions are then ranked according to their confidence.
 After a prediction is obtained, the application can retrieve the corresponding agricultural information from:
 
 ```text
-data/knowledge.json
+public/knowledge.json
 ```
 
 The knowledge base contains information for all 16 supported classes and connects the AI prediction with practical agricultural information.
@@ -131,10 +131,10 @@ The model is designed to run directly in the web application through ONNX infere
 The integration files are:
 
 ```text
-app/public/model/model.onnx
-app/public/model/classes.json
-app/public/model/preprocessing.json
-app/src/inference.js
+public/model/model.onnx
+public/model/classes.json
+public/model/preprocessing.json
+src/inference.ts
 ```
 
 This architecture is intended to support local inference and, once the frontend and offline components are finalized, offline usage without requiring a permanent connection to a remote AI service.
@@ -197,7 +197,7 @@ The images are converted to RGB format and normalized using the ImageNet mean an
 The preprocessing parameters are stored in:
 
 ```text
-app/public/model/preprocessing.json
+public/model/preprocessing.json
 ```
 
 This ensures that the preprocessing used by the web application matches the preprocessing expected by the trained model.
@@ -263,7 +263,7 @@ The resulting tensor uses the **NCHW** layout and `float32` data type.
 These preprocessing parameters are stored in:
 
 ```text
-app/public/model/preprocessing.json
+public/model/preprocessing.json
 ```
 
 ### 6.3 ONNX Model
@@ -273,7 +273,7 @@ The trained model was exported to the **ONNX** format so that it can be used dir
 The model file is:
 
 ```text
-app/public/model/model.onnx
+public/model/model.onnx
 ```
 
 The ONNX model contains the trained neural network and produces **16 output logits**, one for each supported class.
@@ -291,7 +291,7 @@ The inference engine also keeps the ranked predictions, which can be used to pro
 The implementation is located in:
 
 ```text
-app/src/inference.js
+src/inference.ts
 ```
 
 ### 6.5 Confidence Threshold
@@ -318,7 +318,7 @@ The AI prediction is combined with additional agricultural information to make t
 The agricultural knowledge base is stored in:
 
 ```text
-data/knowledge.json
+public/knowledge.json
 ```
 
 It contains information for all **16 supported classes**.
@@ -394,7 +394,7 @@ The final model achieved the following results on the available test sets:
 | ----------------------- | ---------------------------------- | -----: |
 | PlantDoc test set       | Top-1 accuracy                     |  49.4% |
 | Olive test set          | Balanced healthy/diseased accuracy |  99.1% |
-| Internal clean test set | Accuracy                           |  98.2% |
+| Internal clean test set | Accuracy                           |  98.74% |
 
 These results should be interpreted according to the characteristics of each evaluation set.
 
@@ -423,7 +423,7 @@ These two results correspond to different evaluation sets and should not be cons
 
 ### 8.4 Internal Test Evaluation
 
-The final training log reports an accuracy of **98.2%** on an internal clean test set containing **3,721 images**.
+The final training log reports an accuracy of **98.74%** on an internal clean test set containing **3,721 images**.
 
 This result indicates strong performance on images similar to the data used during the project development.
 
@@ -569,7 +569,7 @@ Several improvements could be developed in future versions of fellah AI:
 
    * Finalize the service worker.
    * Add the PWA manifest and application icons.
-   * Make the complete application usable offline once the frontend integration is finalized.
+   * Extend and maintain the validated offline workflow across additional devices and usage scenarios.
 
 5. **Improve accessibility**
 

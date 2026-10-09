@@ -77,7 +77,7 @@ function Index() {
     return () => window.clearTimeout(timer);
   }, []);
   useEffect(() => () => { streamRef.current?.getTracks().forEach(track => track.stop()); window.speechSynthesis?.cancel(); }, []);
-  useEffect(() => { if ("serviceWorker" in navigator) { void navigator.serviceWorker.register("/sw.js"); } }, []);
+  useEffect(() => { if ("serviceWorker" in navigator) { void navigator.serviceWorker.register("/sw.js?v=4"); } }, []);
 
   const saveRecords = (items: RecordItem[]) => {
     setRecords(items);
@@ -150,8 +150,11 @@ function Index() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const speak = () => {
-    if (!analysis?.classId) return;
-    const audio = audioRef.current ?? new Audio(); audio.src = `/audio/${analysis.classId}.mp3`;
+    if (!analysis) return;
+    const src = analysis.status === 'unclear'
+      ? '/audio/unclear_image.mp3'
+      : `/audio/${analysis.classId}.mp3`;
+    const audio = new Audio(src);
     audioRef.current = audio;
     void audio.play().catch((error) => console.error("FELLAH AUDIO ERROR:", error));
   };
