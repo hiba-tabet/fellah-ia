@@ -1,10 +1,10 @@
 # Fellah AI
 An accessible, privacy-first agricultural assistance tool for Algerian farmers. Take a photo. Understand the result. Listen to practical guidance in Algerian Darija.
 
-
 Live demo: https://fellah-ai.karachorouk07.workers.dev
-Source code: github.com/hiba-tabet/fellah-ia
+Source code: https://github.com/hiba-tabet/fellah-ia
 Inference: In the browser
+
 ## Overview
 Fellah AI is a research-oriented agricultural application that helps users identify selected plant diseases and healthy-plant conditions from a photograph of a leaf. It combines:
 
