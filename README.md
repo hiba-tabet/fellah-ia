@@ -2,7 +2,9 @@
 An accessible, privacy-first agricultural assistance tool for Algerian farmers. Take a photo. Understand the result. Listen to practical guidance in Algerian Darija.
 
 Live demo: https://fellah-ai.karachorouk07.workers.dev
+
 Source code: https://github.com/hiba-tabet/fellah-ia
+
 Inference: In the browser
 
 ## Overview
